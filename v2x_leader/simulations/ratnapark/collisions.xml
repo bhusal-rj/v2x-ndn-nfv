@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-07 15:46:33 by Eclipse SUMO sumo Version 1.22.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="simulations/ratnapark/osm.net.xml"/>
+        <route-files value="simulations/ratnapark/accident.rou.xml"/>
+        <additional-files value="simulations/ratnapark/priority.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="simulations/ratnapark/tripinfos.xml"/>
+        <collision-output value="simulations/ratnapark/collisions.xml"/>
+        <statistic-output value="simulations/ratnapark/stats.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <ignore-route-errors value="true"/>
+        <collision.action value="warn"/>
+        <collision.stoptime value="300"/>
+        <collision.check-junctions value="true"/>
+        <collision.mingap-factor value="0"/>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <log value="simulations/ratnapark/sumo_log.txt"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="9999"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="0"/>
+    </random_number>
+
+</sumoConfiguration>
+-->
+
+<collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
+    <collision time="3.00" type="collision" lane="81146145#0_0" pos="7.14" collider="f0" victim="t_5" colliderType="CRASH_TYPE" victimType="DEFAULT_VEHTYPE" colliderSpeed="0.01" victimSpeed="0.00"/>
+    <collision time="12.00" type="collision" lane="136449402#1_0" pos="37.90" collider="t4_vehicle" victim="t3_vehicle" colliderType="CRASH_TYPE" victimType="CRASH_TYPE" colliderSpeed="0.01" victimSpeed="0.00"/>
+    <collision time="35.00" type="collision" lane="81146155#1_0" pos="66.48" collider="t2_vehicle" victim="t1_vehicle" colliderType="CRASH_TYPE" victimType="CRASH_TYPE" colliderSpeed="0.01" victimSpeed="0.00"/>
+</collisions>

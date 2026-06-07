@@ -1,0 +1,4 @@
+<additional>
+    <param key="junction-tll.emergency-priority" value="true"/>
+    <param key="tls.actuated.vTypes" value="t_0 t_1"/>
+</additional>

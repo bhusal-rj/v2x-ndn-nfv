@@ -1,0 +1,4 @@
+--- ns-3 Robust Client (Unix Sockets) ---
+Connecting to /tmp/v2x_sim_socket...
+✅ Connected to OMNeT++ via Unix Socket.
+--- Client Finished ---

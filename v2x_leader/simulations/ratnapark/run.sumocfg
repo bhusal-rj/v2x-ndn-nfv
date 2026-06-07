@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="osm.net.xml"/>
+        <route-files value="accident.rou.xml"/>
+		<additional-files value="priority.add.xml"/>
+    </input>
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <statistic-output value="stats.xml"/>
+        <collision-output value="collisions.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <ignore-route-errors value="true"/>
+        <collision.check-junctions value="true"/>
+		<time-to-teleport value="-1"/>
+
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+       <log value="sumo_log.txt"/>
+    </report>
+
+    <simulation>
+        <collision.action value="warn"/>
+        <collision.stoptime value="300"/>
+        <collision.mingap-factor  value="0"/>
+    </simulation>
+</sumoConfiguration>

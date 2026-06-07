@@ -1,0 +1,34 @@
+***Starting server on port 9999 ***
+Loading net-file from 'simulations/ratnapark/osm.net.xml' ... done (125ms).
+Loading additional-files from 'simulations/ratnapark/priority.add.xml' ... done (0ms).
+Loading route-files incrementally from 'simulations/ratnapark/accident.rou.xml'
+Loading done.
+Warning: Value of tau=0.10 in vehicle type 'CRASH_TYPE' lower than simulation step size may cause collisions.
+Simulation version 1.22.0 started with time: 0.00.
+Warning: Vehicle 'f0'; collision with vehicle 't_5', lane='81146145#0_0', gap=-4.15, latGap=-1.80, time=3.00, stage=move.
+Warning: Vehicle 't3_vehicle' performs emergency stop at the end of lane '136449402#1_0' because there is no connection to the next edge (decel=-3.79, offset=1.71), time=10.00.
+Warning: Vehicle 't4_vehicle'; collision with vehicle 't3_vehicle', lane='136449402#1_0', gap=-1.75, latGap=-1.80, time=12.00, stage=move.
+Warning: Vehicle 't1_vehicle' performs emergency stop at the end of lane '81146155#1_0' because there is no connection to the next edge (decel=-5.87, offset=1.74), time=21.00.
+Warning: Vehicle 't2_vehicle'; collision with vehicle 't1_vehicle', lane='81146155#1_0', gap=-0.90, latGap=-1.80, time=35.00, stage=move.
+Simulation ended at time: 200.00.
+Reason: TraCI requested termination.
+Performance:
+ Duration: 226.21s
+ TraCI-Duration: 212.77s
+ Real time factor: 0.884119
+ UPS: 26.417463
+Vehicles:
+ Inserted: 35 (Loaded: 37)
+ Running: 22
+ Waiting: 2
+ Teleports: 0 (Collisions: 3)
+ Emergency Stops: 2
+Statistics (avg of 13):
+ RouteLength: 766.49
+ Speed: 5.64
+ Duration: 130.69
+ WaitingTime: 59.92
+ TimeLoss: 84.20
+ DepartDelay: 1.15
+DijkstraRouter answered 107 queries and explored 73.18 edges on average.
+DijkstraRouter spent 0.01s answering queries (0.07ms on average).

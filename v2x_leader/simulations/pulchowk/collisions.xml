@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-10 18:58:08 by Eclipse SUMO sumo Version 1.22.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="simulations/pulchowk/osm.net.xml"/>
+        <route-files value="simulations/pulchowk/osm.rou.xml"/>
+        <additional-files value="simulations/pulchowk/osm.poly.xml,simulations/pulchowk/output.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="simulations/pulchowk/tripinfos.xml"/>
+        <collision-output value="simulations/pulchowk/collisions.xml"/>
+        <statistic-output value="simulations/pulchowk/stats.xml"/>
+    </output>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <collision.action value="warn"/>
+        <collision.stoptime value="300"/>
+        <collision.mingap-factor value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <log value="simulations/pulchowk/sumo_log.txt"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="9999"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="0"/>
+    </random_number>
+
+    <gui_only>
+        <gui-settings-file value="simulations/pulchowk/osm.view.xml"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
+    <collision time="28.00" type="collision" lane="232351912#0_1" pos="94.57" collider="f_7.0" victim="f_0.0" colliderType="DEFAULT_VEHTYPE" victimType="DEFAULT_VEHTYPE" colliderSpeed="3.67" victimSpeed="0.00"/>
+    <collision time="36.00" type="collision" lane="232351912#0_1" pos="90.82" collider="t_8" victim="f_7.0" colliderType="DEFAULT_VEHTYPE" victimType="DEFAULT_VEHTYPE" colliderSpeed="2.47" victimSpeed="0.00"/>
+    <collision time="68.00" type="collision" lane="-120443304_0" pos="315.38" collider="t_3" victim="f_6.0" colliderType="DEFAULT_VEHTYPE" victimType="DEFAULT_VEHTYPE" colliderSpeed="2.95" victimSpeed="0.00"/>
+    <collision time="70.00" type="collision" lane="232351912#5_0" pos="34.63" collider="f_11.1" victim="t_18" colliderType="DEFAULT_VEHTYPE" victimType="DEFAULT_VEHTYPE" colliderSpeed="0.00" victimSpeed="0.00"/>
+    <collision time="77.00" type="collision" lane="271375318#0_0" pos="94.37" collider="t_6" victim="t_7" colliderType="fire_truck" victimType="DEFAULT_VEHTYPE" colliderSpeed="0.00" victimSpeed="10.35"/>
+    <collision time="89.00" type="collision" lane="-271375318#0_0" pos="89.88" collider="t_25" victim="t_11" colliderType="DEFAULT_VEHTYPE" victimType="DEFAULT_VEHTYPE" colliderSpeed="3.05" victimSpeed="0.00"/>
+    <collision time="113.00" type="collision" lane="232351912#1_0" pos="75.55" collider="t_30" victim="f_0.1" colliderType="DEFAULT_VEHTYPE" victimType="DEFAULT_VEHTYPE" colliderSpeed="4.59" victimSpeed="2.16"/>
+</collisions>

@@ -1,0 +1,21 @@
+# OMNeT++ build artifacts
+out/
+results/
+bin/
+*.o
+*.so
+*.a
+*.dll
+*.exe
+
+# Generated makefile
+Makefile
+
+# Editor/IDE files
+*.swp
+*.user
+*.workspace
+.idea/
+.vscode/
+results/
+Makefile

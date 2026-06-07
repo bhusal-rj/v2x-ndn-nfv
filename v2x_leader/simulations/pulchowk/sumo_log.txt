@@ -1,0 +1,53 @@
+***Starting server on port 9999 ***
+Loading net-file from 'simulations/pulchowk/osm.net.xml' ... done (25ms).
+Loading additional-files from 'simulations/pulchowk/osm.poly.xml' ... done (14ms).
+Loading additional-files from 'simulations/pulchowk/output.add.xml' ... done (7ms).
+Loading route-files incrementally from 'simulations/pulchowk/osm.rou.xml'
+Loading done.
+Simulation version 1.22.0 started with time: 0.00.
+Warning: Vehicle 'f_2.0' performs emergency stop at the end of lane '-183827058#1_0' because of a red traffic light (decel=-11.46, offset=2.95), time=5.00.
+Warning: Vehicle 'f_0.0' performs emergency stop at the end of lane '232351912#0_1' because of a red traffic light (decel=-15.08, offset=5.68), time=7.00.
+Warning: Vehicle 'f_11.0' performs emergency stop at the end of lane '232351912#4_0' because of a red traffic light (decel=-11.49, offset=2.40), time=13.00.
+Warning: Vehicle 't_12' performs emergency stop at the end of lane '232351912#4_0' because of a red traffic light (decel=-8.59, offset=1.24), time=17.00.
+Warning: Vehicle 'f_7.0'; collision with vehicle 'f_0.0', lane='232351912#0_1', gap=-2.28, time=28.00, stage=move.
+Warning: Vehicle 't_28' is not allowed to depart on any lane of edge '-86217477#3'.
+Warning: Vehicle 'f_15.0' is not allowed to depart on any lane of edge '183402410#0'.
+Warning: Vehicle 't_8'; collision with vehicle 'f_7.0', lane='232351912#0_1', gap=-1.41, time=36.00, stage=move.
+Warning: Vehicle 'f_12.1' performs emergency stop at the end of lane '271375318#1_0' because of a red traffic light (decel=-13.61, offset=10.07), time=48.00.
+Warning: Vehicle 't_1' performs emergency stop at the end of lane '328589593_0' because of a red traffic light (decel=-2.13, offset=1.03), time=53.00.
+Warning: Vehicle 't_6' performs emergency stop at the end of lane '271375318#0_0' because of a red traffic light (decel=-11.50, offset=6.02), time=65.00.
+Warning: Vehicle 't_2' performs emergency stop at the end of lane '232351912#5_1' because of a red traffic light (decel=-2.38, offset=1.46), time=67.00.
+Warning: Vehicle 't_30' performs emergency stop at the end of lane '-221800569_0' because of a red traffic light (decel=-2.90, offset=1.01), time=68.00.
+Warning: Vehicle 't_3'; collision with vehicle 'f_6.0', lane='-120443304_0', gap=-2.72, time=68.00, stage=move.
+Warning: Vehicle 'f_11.1' performs emergency stop at the end of lane '232351912#5_0' because of a red traffic light (decel=-11.76, offset=5.59), time=70.00.
+Warning: Vehicle 'f_11.1'; collision with vehicle 't_18', lane='232351912#5_0', gap=-6.00, time=70.00, stage=move.
+Warning: Vehicle 't_6'; collision with vehicle 't_7', lane='271375318#0_0', gap=-1.96, time=77.00, stage=move.
+Warning: Vehicle 't_7' performs emergency stop at the end of lane ':434978484_8_0' because there is no connection to the next edge (decel=-10.35, offset=3.72), time=78.00.
+Warning: Vehicle 't_25'; collision with vehicle 't_11', lane='-271375318#0_0', gap=-2.86, time=89.00, stage=move.
+Warning: Vehicle 't_21' performs emergency stop at the end of lane '172003011#2_0' because of a red traffic light (decel=-1.03, offset=0.55), time=104.00.
+Warning: Vehicle 't_30'; collision with vehicle 'f_0.1', lane='232351912#1_0', gap=-0.48, time=113.00, stage=move.
+Warning: Vehicle 't_30' performs emergency stop at the end of lane '232351912#1_0' because there is no connection to the next edge (decel=-4.49, offset=3.19), time=115.00.
+Warning: Vehicle 'f_0.1' performs emergency stop at the end of lane ':cluster_1942462683_317532061_8_1' because there is no connection to the next edge (decel=-1.46, offset=0.99), time=121.00.
+Warning: Vehicle 'f_1.1' performs emergency stop at the end of lane '232351912#1_1' because of a red traffic light (decel=-4.25, offset=1.90), time=142.00.
+Simulation ended at time: 200.00.
+Reason: TraCI requested termination.
+Performance:
+ Duration: 21.59s
+ TraCI-Duration: 18.27s
+ Real time factor: 9.26526
+ UPS: 509.543222
+Vehicles:
+ Inserted: 73 (Loaded: 75)
+ Running: 70
+ Waiting: 0
+ Teleports: 0 (Collisions: 7)
+ Emergency Stops: 15
+Bike Statistics (avg of 3):
+ RouteLength: 616.64
+ Speed: 4.43
+ Duration: 135.00
+ WaitingTime: 49.67
+ TimeLoss: 93.72
+ DepartDelay: 1.33
+DijkstraRouter answered 1035 queries and explored 5.78 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).

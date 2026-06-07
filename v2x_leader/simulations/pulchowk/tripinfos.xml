@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-10 18:58:08 by Eclipse SUMO sumo Version 1.22.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="simulations/pulchowk/osm.net.xml"/>
+        <route-files value="simulations/pulchowk/osm.rou.xml"/>
+        <additional-files value="simulations/pulchowk/osm.poly.xml,simulations/pulchowk/output.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="simulations/pulchowk/tripinfos.xml"/>
+        <collision-output value="simulations/pulchowk/collisions.xml"/>
+        <statistic-output value="simulations/pulchowk/stats.xml"/>
+    </output>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <collision.action value="warn"/>
+        <collision.stoptime value="300"/>
+        <collision.mingap-factor value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <log value="simulations/pulchowk/sumo_log.txt"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="9999"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="0"/>
+    </random_number>
+
+    <gui_only>
+        <gui-settings-file value="simulations/pulchowk/osm.view.xml"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t_20" depart="22.00" departLane="-183402421#2_0" departPos="0.39" departSpeed="0.00" departDelay="1.00" arrival="138.00" arrivalLane="194442916_0" arrivalPos="6.90" arrivalSpeed="3.92" duration="116.00" routeLength="235.07" waitingTime="52.00" waitingCount="2" stopTime="0.00" timeLoss="72.58" rerouteNo="0" devices="tripinfo_t_20 routing_t_20" vType="DEFAULT_BIKETYPE" speedFactor="0.98" vaporized=""/>
+    <tripinfo id="f_10.0" depart="7.00" departLane="172003011#3_0" departPos="1.70" departSpeed="0.00" departDelay="3.00" arrival="165.00" arrivalLane="-271375318#1_0" arrivalPos="84.74" arrivalSpeed="13.17" duration="158.00" routeLength="807.42" waitingTime="49.00" waitingCount="2" stopTime="0.00" timeLoss="117.41" rerouteNo="0" devices="tripinfo_f_10.0 routing_f_10.0" vType="DEFAULT_BIKETYPE" speedFactor="0.93" vaporized=""/>
+    <tripinfo id="f_10.1" depart="40.00" departLane="172003011#3_0" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="171.00" arrivalLane="-271375318#1_0" arrivalPos="84.74" arrivalSpeed="19.45" duration="131.00" routeLength="807.42" waitingTime="48.00" waitingCount="2" stopTime="0.00" timeLoss="91.16" rerouteNo="0" devices="tripinfo_f_10.1 routing_f_10.1" vType="DEFAULT_BIKETYPE" speedFactor="0.93" vaporized=""/>
+</tripinfos>
