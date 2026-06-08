@@ -1,0 +1,76 @@
+# Experiment Configuration Template
+# =====================================
+# This template defines a reproducible experiment configuration with deterministic seeding
+# and statistical methodology support for V2X-NDN simulations.
+#
+# Usage:
+#   - Copy this file to create specific experiment configurations
+#   - Adjust parameters for your experiment (numerology, duration, seeds, scenarios)
+#   - Pass to simulation runner for reproducible results across multiple runs
+#
+# Statistical Methodology:
+#   - Multiple seeds enable confidence interval computation across runs
+#   - Warm-up period (2 seconds) excludes cold-start artifacts
+#   - Minimum 20 seeds recommended for reliable statistical measures
+#   - Confidence intervals: 95% CI using t-distribution
+
+experiment_name: "baseline"
+
+# List of random seeds for deterministic reproducibility
+# Each seed produces identical results across different runs
+# Multiple seeds enable statistical analysis (CI computation)
+# Recommendation: Use 20+ seeds for reliable confidence intervals
+seeds: 
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+
+# Simulation duration in seconds
+# Excludes first 2 seconds (warm-up period) from metrics analysis
+duration_seconds: 100
+
+# 5G NR Numerology (subcarrier spacing):
+#   0: 15 kHz (LTE-like)
+#   1: 30 kHz
+#   2: 60 kHz
+#   3: 120 kHz
+#   4: 240 kHz (mmWave)
+numerology: 4
+
+# Scenarios to run in this experiment
+# Each scenario represents a different V2X traffic pattern or network configuration
+scenarios:
+  - name: "baseline"
+    description: "Baseline V2I/V2V latency performance"
+    parameters: {}
+    # Example: To enable specific features or configurations
+    # parameters:
+    #   feature_flag: "enabled"
+    #   vehicle_density: "high"
+    #   interference_level: "moderate"
+
+# Optional: Experiment metadata
+metadata:
+  created_by: "automation"
+  purpose: "Baseline performance evaluation"
+  tags:
+    - "deterministic"
+    - "statistical-analysis"
+    - "v2x-metrics"

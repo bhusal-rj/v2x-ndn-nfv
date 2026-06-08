@@ -1,0 +1,40 @@
+## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    # List of V2X source files that should be linked together with simple_ndn.cc
+    # Refactored modules:
+    #   - network_utils.cc: Socket communication utilities
+    #   - ndn_setup.cc: NDN stack installation and configuration
+    #   - nr_5g_setup.cc: 5G NR infrastructure setup
+    #   - safety_detection.cc: Collision detection and safety warnings
+    #   - metrics_collector.cc: Metrics collection and JSON output
+    #   - node_management.cc: Node creation and ID mapping
+    #   - mec_edge_filter.cc: MEC Edge filtering (Architecture A Use Case I)
+    #   - traffic_light_preemption.cc: Edge-based preemption (Architecture A Use Case II)
+    #   - collision_avoidance.cc: TTC-based collision avoidance (Architecture A Use Case III)
+    #   - arch_a_integration.cc: Architecture A orchestration layer
+    #   - accident_notification.cc: Radius-based accident notification to nearby vehicles
+    #   - v2i_position_producer.cc: V2I Position Producer for MEC to query vehicle positions
+    #   - ndn_position_cache.cc: NDN position cache for MEC-received vehicle positions
+    #   - ndn_consumer_cache_friendly.cc: Cache-friendly consumer without sequence numbers
+    v2x_sources = [
+       'network_utils.cc',
+       'ndn_setup.cc',
+       'nr_5g_setup.cc',
+       'safety_detection.cc',
+       'metrics_collector.cc',
+       'node_management.cc',
+       'mec_edge_filter.cc',
+       'traffic_light_preemption.cc',
+       'collision_avoidance.cc',
+       'arch_a_integration.cc',
+       'accident_notification.cc',
+       'v2i_position_producer.cc',
+       'ndn_position_cache.cc',
+       'ndn_consumer_cache_friendly.cc'
+    ]
+    
+    # Build the main ndn-v2x program with all V2X sources
+    obj = bld.create_ns3_program('ndn-v2x')
+    obj.source = ['simple_ndn.cc'] + v2x_sources
+  
