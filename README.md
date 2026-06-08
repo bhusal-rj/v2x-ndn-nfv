@@ -1,6 +1,6 @@
 # Cross-Layer NFV and Named Data Networking Integration for 5G NR-V2X Edge Services
 
-Research artifact accompanying the IEEE Transactions manuscript in [`paper.tex`](paper.tex).
+Research artifact accompanying the IEEE Transactions manuscript in [`ndn/paper.tex`](ndn/paper.tex).
 
 | | |
 |---|---|
@@ -13,7 +13,12 @@ Research artifact accompanying the IEEE Transactions manuscript in [`paper.tex`]
 
 ## Abstract
 
-This repository archives the co-simulation framework and NS-3 source code used in the paper. The study couples **SUMO** mobility, **OMNeT++/Veins** NFV/MEC orchestration, and **ns-3/ndnSIM** networking to compare a documented **IP/UDP baseline** with **NDN over UDP/IP** across NR numerologies μ ∈ {1, 2, 3} on a **200 s** urban trace (35 vehicles, single gNodeB, 23–25 active RSU instances).
+This repository archives the co-simulation framework used in the paper. It bundles two components:
+
+- **`v2x_leader/`** — OMNeT++/Veins NFV/MEC control plane (SUMO mobility, RSU lifecycle, safety apps)
+- **`ndn/`** — NS-3 / ndnSIM network data plane (5G NR V2I, NDN over UDP/IP, safety use-case hooks)
+
+Together they compare a documented **IP/UDP baseline** with **NDN over UDP/IP** across NR numerologies μ ∈ {1, 2, 3} on a **200 s** urban trace (35 vehicles, single gNodeB, 23–25 active RSU instances).
 
 | Stack | Key result (three-seed means, μ = 1 / 2 / 3) |
 |-------|---------------------------------------------|
@@ -23,42 +28,48 @@ This repository archives the co-simulation framework and NS-3 source code used i
 | **NDN ISR** | 99.67–99.97 %; no NACKs observed |
 | **Latency tiers** | NDN at μ=3 meets the 10 ms median reference; both stacks satisfy TS 22.185 (100 ms) |
 
-Full methodology, tables, and limitations are in [`paper.tex`](paper.tex) (Appendix A: Reproducibility).
+Full methodology, tables, and limitations are in [`ndn/paper.tex`](ndn/paper.tex) (Appendix A: Reproducibility).
 
 ---
 
 ## Repository Contents
 
-This archive is intentionally minimal. It contains the manuscript, NS-3 simulation sources, and run scripts. External simulators and the OMNeT++ control-plane component are **not** bundled here.
-
 ```
-ndn/
-├── paper.tex              # Manuscript (IEEEtran, self-contained)
-├── README.md              # This file
-├── run-simple-cosim.sh    # Main co-simulation launcher
-├── experiment.sh          # Optional batch runner (edit parameters before use)
-├── script.py              # Quick numerology comparison utility
-├── wscript                # NS-3 build configuration
-├── src/                   # NS-3 / ndnSIM simulation source
-│   ├── simple_ndn.cc      # Entry point and co-simulation loop
-│   ├── nr_5g_setup.cc     # 5G NR infrastructure
-│   ├── ndn_setup.cc       # NDN stack configuration
-│   ├── metrics_collector.cc
-│   ├── arch_a_integration.cc
-│   ├── mec_edge_filter.cc           # UC1: Edge filtering
-│   ├── traffic_light_preemption.cc  # UC2: Emergency preemption
-│   ├── collision_avoidance.cc       # UC3: TTC collision avoidance
-│   ├── accident_notification.cc     # UC4: Topology-aware notification
-│   └── headers/
-└── experiments/
-    └── manifest_template.yaml   # Experiment configuration template
+.
+├── README.md                  # This file
+├── v2x_leader/                # OMNeT++/Veins control plane
+│   ├── src/                   # C++ application modules
+│   ├── headers/               # Shared types and module headers
+│   ├── ned/                   # OMNeT++ network definitions
+│   ├── simulations/           # SUMO scenarios (pulchowk, ratnapark)
+│   ├── docs/                  # Architecture and implementation notes
+│   ├── run_simulation.sh      # Standalone OMNeT++ build and run
+│   └── omnetpp.ini            # Simulation configuration
+└── ndn/                       # NS-3 / ndnSIM data plane
+    ├── paper.tex              # Manuscript (IEEEtran, self-contained)
+    ├── run-simple-cosim.sh    # Main co-simulation launcher
+    ├── experiment.sh          # Optional batch runner (edit parameters before use)
+    ├── script.py              # Quick numerology comparison utility
+    ├── wscript                # NS-3 build configuration
+    ├── src/                   # NS-3 / ndnSIM simulation source
+    │   ├── simple_ndn.cc      # Entry point and co-simulation loop
+    │   ├── nr_5g_setup.cc     # 5G NR infrastructure
+    │   ├── ndn_setup.cc       # NDN stack configuration
+    │   ├── metrics_collector.cc
+    │   ├── arch_a_integration.cc
+    │   ├── mec_edge_filter.cc           # UC1: Edge filtering
+    │   ├── traffic_light_preemption.cc  # UC2: Emergency preemption
+    │   ├── collision_avoidance.cc       # UC3: TTC collision avoidance
+    │   ├── accident_notification.cc     # UC4: Topology-aware notification
+    │   └── headers/
+    └── experiments/
+        └── manifest_template.yaml   # Experiment configuration template
 ```
 
 **Not included in git** (required separately):
 
 | Component | Role | Expected location |
 |-----------|------|-------------------|
-| `v2x_leader/` | OMNeT++/Veins NFV control plane | `$PROJECT_ROOT/v2x_leader` |
 | NS-3 + ndnSIM + 5G-LENA | Network data plane | `~/ndn2/ns-3` (default in run script) |
 | OMNeT++ | Discrete-event simulator | `~/omnetpp` |
 | SUMO + Veins | Traffic mobility | `~/sumo`, `~/veins` |
@@ -70,8 +81,13 @@ ndn/
 Lock-step co-simulation across three layers:
 
 ```
-SUMO ──► OMNeT++/Veins (NFV/MANO, safety apps) ◄── TCP:9998 ──► ns-3/ndnSIM (IP or NDN over 5G NR)
+SUMO ──► OMNeT++/Veins (v2x_leader: NFV/MANO, safety apps) ◄── TCP:9998 ──► ns-3/ndnSIM (ndn: IP or NDN over 5G NR)
 ```
+
+| Component | Directory | Role |
+|-----------|-----------|------|
+| **Control plane** | `v2x_leader/` | Vehicle/RSU mobility, NFV orchestration, safety event detection, TCP bridge to NS-3 |
+| **Data plane** | `ndn/` | 5G NR V2I stack, NDN forwarding, MEC edge services, metrics collection |
 
 | Path | Description |
 |------|-------------|
@@ -87,6 +103,38 @@ SUMO ──► OMNeT++/Veins (NFV/MANO, safety apps) ◄── TCP:9998 ──�
 | UC2 | Emergency traffic-light preemption | μ = 3 only |
 | UC3 | TTC-based collision avoidance | All numerologies |
 | UC4 | Topology-aware accident notification (proactive cache warming) | All numerologies |
+
+---
+
+## v2x_leader (Control Plane)
+
+The OMNeT++/Veins project models the V2X control plane: SUMO-driven vehicle mobility, RSU lifecycle management, NFV service orchestration, and safety application logic. It exposes a TCP socket on port **9998** for lock-step time synchronization and JSON message exchange with the NS-3 client.
+
+### Key modules
+
+| Module | Purpose |
+|--------|---------|
+| `socketInterface` | TCP bridge to NS-3 (time sync, mobility, safety commands) |
+| `centralRSUManager` | NFV/MANO decisions, proactive cache target selection |
+| `vehicleApp` / `rsuApp` | Per-node safety and traffic applications |
+| `timeSynchronizer` | Pause/resume coordination with NS-3 |
+| `metricsCollector` | NFV lifecycle and service-flow telemetry |
+
+### Standalone run (OMNeT++ only)
+
+```bash
+cd v2x_leader
+chmod +x run_simulation.sh
+./run_simulation.sh
+```
+
+For architecture details see [`v2x_leader/docs/SYSTEM_REFERENCE.md`](v2x_leader/docs/SYSTEM_REFERENCE.md) and [`v2x_leader/docs/IMPLEMENTATION.md`](v2x_leader/docs/IMPLEMENTATION.md).
+
+---
+
+## ndn (Data Plane)
+
+The NS-3 / ndnSIM sources implement the 5G NR network stack, NDN forwarding over UDP/IP, and the four safety use-case integrations. On each co-simulation run, `run-simple-cosim.sh` copies `ndn/src/` into `~/ndn2/ns-3/scratch/ndn-v2x` and builds the NS-3 target.
 
 ---
 
@@ -108,25 +156,24 @@ Tested on **Ubuntu 20.04 / 22.04 LTS**. Recommended: 8+ CPU cores, 16+ GB RAM.
 
 ### Setup summary
 
-1. Install NS-3, ndnSIM, and 5G-LENA under `~/ndn2/ns-3`.
-2. Install OMNeT++, SUMO, and Veins; add their binaries to `PATH`.
-3. Place the OMNeT++ control-plane project at `~/v2x/ndn/v2x_leader` and build it (`make -j$(nproc)`).
-4. Clone this repository to `~/v2x/ndn`.
-5. On each run, `run-simple-cosim.sh` copies `src/` into `~/ndn2/ns-3/scratch/ndn-v2x` and builds the NS-3 target.
+1. Clone this repository (e.g. to `~/v2x`).
+2. Install NS-3, ndnSIM, and 5G-LENA under `~/ndn2/ns-3`.
+3. Install OMNeT++, SUMO, and Veins; add their binaries to `PATH`.
+4. Build the control plane: `cd v2x_leader && make -j$(nproc)`.
+5. Run co-simulation from `ndn/`: `./run-simple-cosim.sh` copies sources and launches both simulators.
 
-Edit path variables at the top of `run-simple-cosim.sh` if your layout differs from the defaults above.
+Edit path variables at the top of `ndn/run-simple-cosim.sh` if your layout differs from the defaults (`PROJECT_ROOT`, `OMNET_DIR`, `NS3_PATH`).
 
 ---
 
 ## Quick Start
 
 ```bash
-cd ~/v2x/ndn
-
-# Build OMNeT++ control plane (once)
+# From repository root
 cd v2x_leader && make -j$(nproc) && cd ..
 
 # Run one NDN configuration from the paper grid
+cd ndn
 ./run-simple-cosim.sh --duration 200 --numerology 1 --seed 1
 ```
 
@@ -146,7 +193,7 @@ A 200 s run typically requires several hours of wall-clock time (RTF ≈ 0.015).
 
 ## Reproducing Paper Experiments
 
-Parameters match **Appendix A (Reproducibility)** in `paper.tex`:
+Parameters match **Appendix A (Reproducibility)** in `ndn/paper.tex`:
 
 - Duration: **200 s**
 - Numerology: **μ ∈ {1, 2, 3}**
@@ -160,12 +207,12 @@ Parameters match **Appendix A (Reproducibility)** in `paper.tex`:
 |---------|------|-----------------|
 | NDN | 9 (3 numerologies × 3 seeds) | FullDelay, ISR, PDR, CS hit rate, safety counters |
 | IP/UDP baseline | 9 (3 numerologies × 3 seeds) | UDP RTT, PDR, throughput |
-| NFV telemetry | OMNeT++ traces | RSU lifecycle, scale-out/in, service-flow counters |
+| NFV telemetry | OMNeT++ traces (`v2x_leader`) | RSU lifecycle, scale-out/in, service-flow counters |
 
 ### Reproduce full NDN grid
 
 ```bash
-cd ~/v2x/ndn
+cd ndn
 for num in 1 2 3; do
   for seed in 1 2 3; do
     ./run-simple-cosim.sh --duration 200 --numerology $num --seed $seed
@@ -175,20 +222,19 @@ done
 
 ### Build the manuscript
 
-`paper.tex` is self-contained (inline bibliography). From the repository root:
+`ndn/paper.tex` is self-contained (inline bibliography). From the `ndn/` directory:
 
 ```bash
+cd ndn
 pdflatex paper.tex
 pdflatex paper.tex   # second pass for cross-references
 ```
-
-If you add a `main.tex` wrapper later, use that as the build entry point instead.
 
 ---
 
 ## Output Files
 
-After each run, outputs are collected under `results/` with the tag `{duration}s_num{N}_seed{S}`:
+After each run, outputs are collected under `ndn/results/` with the tag `{duration}s_num{N}_seed{S}`:
 
 | File | Content |
 |------|---------|
@@ -205,6 +251,7 @@ After each run, outputs are collected under `results/` with the tag `{duration}s
 Compare numerology results across existing JSON files:
 
 ```bash
+cd ndn
 python3 script.py
 ```
 
@@ -212,7 +259,7 @@ python3 script.py
 
 ## Metric Definitions
 
-Aligned with Section IV of `paper.tex`:
+Aligned with Section IV of `ndn/paper.tex`:
 
 | KPI | IP | NDN |
 |-----|----|-----|
@@ -231,7 +278,7 @@ Statistical reporting in the paper uses mean, sample standard deviation, and 95 
 
 ## Limitations
 
-See Section VII (*Threats to Validity and Limitations*) in `paper.tex`. Summary:
+See Section VII (*Threats to Validity and Limitations*) in `ndn/paper.tex`. Summary:
 
 - **V2I** uses the full 5G NR stack (5G-LENA) with 3GPP UMa-LoS; latency claims are trace-backed.
 - **V2V** is point-to-point emulation, not PC5 sidelink — do not cite as PC5 radio performance.
