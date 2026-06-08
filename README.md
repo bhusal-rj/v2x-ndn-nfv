@@ -1,6 +1,5 @@
 # Cross-Layer NFV and Named Data Networking Integration for 5G NR-V2X Edge Services
 
-Research artifact accompanying the IEEE Transactions manuscript in [`ndn/paper.tex`](ndn/paper.tex).
 
 | | |
 |---|---|
@@ -340,11 +339,9 @@ See Section VII (*Threats to Validity and Limitations*) in `ndn/paper.tex`. Summ
              Bhusal, Arun C. and Dawadi, Babu R. and Manzoni, Pietro},
   journal = {IEEE Transactions on Intelligent Transportation Systems},
   year    = {2026},
-  note    = {Research artifact: \url{<repository-url>}}
 }
 ```
 
-Replace `<repository-url>` with the final archive DOI or repository URL before submission.
 
 ---
 
