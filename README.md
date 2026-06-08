@@ -66,13 +66,15 @@ Full methodology, tables, and limitations are in [`ndn/paper.tex`](ndn/paper.tex
         └── manifest_template.yaml   # Experiment configuration template
 ```
 
-**Not included in git** (required separately):
+**Not included in git** (you must install these separately before running):
 
 | Component | Role | Expected location |
 |-----------|------|-------------------|
-| NS-3 + ndnSIM + 5G-LENA | Network data plane | `~/ndn2/ns-3` (default in run script) |
+| NS-3 + ndnSIM + 5G-LENA | Pre-built network simulator tree with all required modules | `~/ndn2/ns-3` (default in run script) |
 | OMNeT++ | Discrete-event simulator | `~/omnetpp` |
 | SUMO + Veins | Traffic mobility | `~/sumo`, `~/veins` |
+
+> **Important:** This repository ships only the `ndn/` scratch sources (`simple_ndn.cc` and helpers). It does **not** bundle NS-3, ndnSIM, ndn-cxx, NFD, or 5G-LENA. You must have a working NS-3 installation with ndnSIM and the NR module integrated and built **before** running co-simulation.
 
 ---
 
@@ -134,7 +136,7 @@ For architecture details see [`v2x_leader/docs/SYSTEM_REFERENCE.md`](v2x_leader/
 
 ## ndn (Data Plane)
 
-The NS-3 / ndnSIM sources implement the 5G NR network stack, NDN forwarding over UDP/IP, and the four safety use-case integrations. On each co-simulation run, `run-simple-cosim.sh` copies `ndn/src/` into `~/ndn2/ns-3/scratch/ndn-v2x` and builds the NS-3 target.
+The `ndn/` directory contains NS-3 scratch sources — not a standalone NS-3 tree. They implement the 5G NR network stack, NDN forwarding over UDP/IP, and the four safety use-case integrations. On each co-simulation run, `run-simple-cosim.sh` copies `ndn/src/` into your external NS-3 tree at `~/ndn2/ns-3/scratch/ndn-v2x` and builds the `ndn-v2x` target against your pre-installed ndnSIM and 5G-LENA modules.
 
 ---
 
@@ -154,13 +156,53 @@ Tested on **Ubuntu 20.04 / 22.04 LTS**. Recommended: 8+ CPU cores, 16+ GB RAM.
 | Veins | compatible with OMNeT++ | V2X framework for OMNeT++ |
 | Python | 3.8+ | Optional post-run utilities |
 
+### Required NS-3 / ndnSIM source tree
+
+You must obtain and build a complete NS-3 installation with ndnSIM and 5G-LENA integrated. The versions tested for this artifact are:
+
+| Package | Version | Install location (typical) |
+|---------|---------|----------------------------|
+| NS-3 | **3.37** | `~/ndn2/ns-3` |
+| ndnSIM | **2.8** | `~/ndn2/ns-3/src/ndnSIM` |
+| ndn-cxx | **0.8.0** | linked by ndnSIM build |
+| NFD | **22.02** | linked by ndnSIM build |
+| 5G-LENA (`nr` module) | **5g-lena-v2.4** | `~/ndn2/ns-3/src/nr` |
+
+The following NS-3 modules must be present and enabled in your tree (used by `ndn/src/simple_ndn.cc`):
+
+| Module | Purpose in this study |
+|--------|----------------------|
+| `ndnSIM` | NDN stack, NFD forwarder, PIT/FIB/CS, application delay tracers |
+| `nr` (5G-LENA) | 5G NR gNodeB/UE, EPC, numerology, beamforming |
+| `internet` | IPv4/UDP carriage for NDN faces and IP/UDP baseline |
+| `mobility` | Vehicle and RSU position updates from OMNeT++ |
+| `point-to-point` | V2V emulated links |
+| `antenna` | NR antenna models |
+| `network`, `core` | NS-3 base infrastructure |
+
+**Verify your installation** before cloning this repository:
+
+```bash
+cd ~/ndn2/ns-3
+./waf configure --enable-examples
+./waf build
+./waf --run scratch/ndnSIM/ndn-congestion-alt-topo-plugin   # ndnSIM smoke test
+```
+
+If ndnSIM or the `nr` module is missing, `./waf build` will fail once `run-simple-cosim.sh` copies the `ndn/` sources into `scratch/ndn-v2x/`.
+
+Follow the official integration guides:
+
+- [ndnSIM installation](https://ndnsim.net/current/getting-started.html) (ndn-cxx + NFD + ndnSIM into NS-3)
+- [5G-LENA (nr module)](https://5g-lena.cttc.es/) (add `nr` under `ns-3/src/`)
+
 ### Setup summary
 
-1. Clone this repository (e.g. to `~/v2x`).
-2. Install NS-3, ndnSIM, and 5G-LENA under `~/ndn2/ns-3`.
+1. **First:** build NS-3 3.37 with ndnSIM 2.8 and 5G-LENA v2.4 under `~/ndn2/ns-3` (see above).
+2. Clone this repository (e.g. to `~/v2x`).
 3. Install OMNeT++, SUMO, and Veins; add their binaries to `PATH`.
 4. Build the control plane: `cd v2x_leader && make -j$(nproc)`.
-5. Run co-simulation from `ndn/`: `./run-simple-cosim.sh` copies sources and launches both simulators.
+5. Run co-simulation from `ndn/`: `./run-simple-cosim.sh` copies scratch sources into your NS-3 tree and launches both simulators.
 
 Edit path variables at the top of `ndn/run-simple-cosim.sh` if your layout differs from the defaults (`PROJECT_ROOT`, `OMNET_DIR`, `NS3_PATH`).
 
